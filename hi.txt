@@ -1,0 +1,494 @@
+
+1. Solution
+Scenario: Create a folder named Project, cd into it, and initialize the git repository by doing the
+following,
+$ mkdir Project
+$ cd Project
+$ git init
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1a. Solution
+Perform Three Commits:Create three les and commit them separately. For example:
+$Project> echo "Hello World 1" > file1.txt
+$Project> git add file1.txt
+$Project> git commit -m "First commit"
+$Project> echo "Hello World 2" > file2.txt
+$Project> git add file2.txt
+$Project> git commit -m "Second commit"
+$Project> echo "Hello World 3" > file3.txt
+$Project> git add file3.txt
+$Project> git commit -m "Third commit"
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1b. Solution
+To display the commit log in the format "Commit Hash:Author name:Author Date", use
+$Project> git log --pretty=format:"%H:%an:%ad"
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1c. Solution
+Create a gitignore le that ignores all les starting from vowels
+$Project> nano .gitignore
+# Add the following lines to it
+[aeiou]*
+[AEIOU]*
+# save the file
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1d. Solution
+Examine the git di command on the repository: Some of the examples are,
+1. Compare Staged Changes to the Last Commit
+2. Compare Two Commits
+3. Show Changes in a Specic Commit
+1. Compare Staged Changes to the Last Commit
+2
+$ Project> git init
+$ Project> notepad readme.md # Add and save the file
+$ Project> git add .
+$ Project> git commit -m "First Commit"
+$ Project> git log # Record the Commit hash
+# commit 4c232cb3e50b17b10df6cf2dd68ab1c36b46e641
+$ Project> notepad test.c # append some content
+$ Project> git add test.c
+$ Project> git diff --staged
+diff --git a/test.c b/test.c
+new file mode 100644
+index 0000000..a3f314b
+--- /dev/null
++++ b/test.c
+@@ -0,0 +1 @@
++This is a c file
+\ No newline at end of file
+2. Dierence between two commits
+$ Project> git commit -m "Second Commit"
+commit 5432e8764d2a02ca42d969861c25132869a5a270 (HEAD -> master)
+$ Project> git diff 4c232 5432e
+diff --git a/test.c b/test.c
+new file mode 100644
+index 0000000..a3f314b
+--- /dev/null
++++ b/test.c
+@@ -0,0 +1 @@
++This is a c file
+\ No newline at end of file
+3. Show Changes in a Specic Commit
+$ git diff 5432e^ 4c232 # Second commit with first
+diff --git a/test.c b/test.c
+deleted file mode 100644
+index a3f314b..0000000
+--- a/test.c
++++ /dev/null
+@@ -1 +0,0 @@
+-This is a c file
+\ No newline at end of file
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1e. Solution
+One of the common undos takes place when you commit too early and possibly forget to add some
+les, or you mess up your commit message. If you want to redo that commit, make the additional
+changes you forgot, stage them, and commit again using the amend option. It produces a single
+commit
+$ git log
+commit 5432e8764d2a02ca42d969861c25132869a5a270 (HEAD -> master)
+$ notepad FORGOTTEN.md
+3
+$ git add FORGOTTEN.md
+$ git commit --amend # Adds the FORGOTTEN.md file to the second commit
+$ git log
+commit 5432e8764d2a02ca42d969861c25132869a5a270 (HEAD -> master)
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1f. Solution
+Revert a le from staged to unstaged pipeline: let's say you've changed two les and want to commit
+them as two separate changes, but you accidentally type git add * and stage them both.
+$ notepad README.md # Add some content
+$ notepad CONTRIBUTING.md # Add some content, this we want to reset
+$ git add * # Accidentally adding all the files to staging
+$ git reset HEAD CONTRIBUTING.md
+Unstaged changes after reset:
+M CONTRIBUTING.md
+2. Solution
+Scenario: Create a folder named Project, cd into it, and initialize the git repository by doing the
+following,
+$ mkdir Project
+$ cd Project
+$ git init
+$ notepad readme.md # Add some content
+$ git commit -m "First Commit"
+$ git log # Record the Commit hash
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+To Generate SSH public key on the computer,follow these steps,
+ Open Git Bash.
+ Run ls -al ~/.ssh to list all les in your .ssh directory.
+ Look for les named id_rsa.pub or id_ed25519.pub
+ Generate a New SSH Key
+1. Open Git Bash.
+2. Run ssh-keygen -t rsa -b 4096 -C "your_email@example.com".
+3. Press Enter to save the key in the default location.
+4. Enter a secure passphrase when prompted (optional).
+ Add the SSH Key to the SSH Agent,
+1. Copy the SSH public key to your clipboard.
+2. On GitHub, go to Settings → SSH and GPG keys.
+3. Click New SSH key or Add SSH key.
+4. Add a descriptive label and paste your key.
+5. Click Add SSH key.
+4
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+2a. Solution
+Create a branch called as Testing add TESTERS.md le and perform a commit
+$ git branch
+* master
+$ git status
+On branch master
+nothing to commit, working tree clean
+$ git branch Testing # Creates a new branch
+$ git checkout Testing # Enter the Testing
+$ nano TESTERS.md # Save the content
+$ git commit -m "Testing commit"
+$ git branch
+master
+* Testing
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+2b. Solution
+Create a Second branch called as Bugx add Bugx.md le and perform a commit
+$ git branch Bugfix # Creates a new branch
+$ git checkout Bugfix # Enter the Testing
+$ nano Bugfix.md # Save the content
+$ git commit -m "Bugfix commit"
+$ git branch -v
+master
+Testing
+* Bugfix
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+2c. Solution
+Initial Setup:
+ You have a Git repository with a README.md le.
+ The master branch is the main branch.
+Create and Checkout Testing Branch:
+$git checkout master
+$git checkout -b Testing
+# Edit README.md
+$git add README.md
+$git commit -m "Update README in Testing branch"
+Create and Checkout Bugfix Branch:
+$git checkout master
+$git checkout -b Bugfix
+# Edit README.md
+$git add README.md
+$git commit -m "Fix typos in README in Bugfix branch"
+5
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+2d. Solution
+Merge Conict:
+$git checkout master
+$git merge Testing
+$git merge Bugfix
+# Merge conflict occurs here
+To Resolve the conict
+ Git will mark the le README.md as conicted and show the dierences.
+ You need to open README.md, resolve the dierences manually, and then save the le.
+ After resolving the conict, you mark the conict as resolved, commit the changes, and complete
+the merge.
+# Edit README.md to resolve conflicts
+$git add README.md
+$git commit -m "Resolve merge conflict between Testing and Bugfix"
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+2e. Solution
+ The master branch now contains the merged changes from both Testing and Bugfix branches
+with conicts resolved.
+7. Solution
+In Git, stashing temporarily shelves or stores changes you've made to your working directory and
+reverts it to match the HEAD commit.
+ To use stashing in Git, you typically use the command git stash to stash your changes, and
+git stash pop or git stash apply to reapply them later
+ The stash is a stack, so you can stash multiple changesets and reapply them as needed
+Assume the main branch is clean with TESTERS.md a le. Appending w new content to the above
+le. Issuing the git status gives the following,
+$ git status
+On branch master
+Changes not staged for commit:
+(use "git add <file>..." to update what will be committed)
+(use "git restore <file>..." to discard changes in working directory)
+modified: Testers.md
+no changes added to commit (use "git add" and/or "git commit -a")
+$ git stash
+Saved working directory and index state WIP on master: 96d3278 All are commited
+$ git status
+On branch master
+nothing to commit, working tree clean
+6
+Applying the changes to the TESTERS.md,
+$ git stash apply
+On branch master
+Changes not staged for commit:
+(use "git add <file>..." to update what will be committed)
+(use "git restore <file>..." to discard changes in working directory)
+modified: Testers.md
+no changes added to commit (use "git add" and/or "git commit -a")
+With the two changes to TESTERS.md, we can list the stash STACK as follows,
+$ git stash list
+stash@{0}: WIP on master: 96d3278 All are commited
+stash@{1}: WIP on master: 96d3278 All are commited
+$ git stash apply 1
+$ git stash apply stash@{1}
+$ git stash drop stash@{1}
+$ git stash list
+stash@{0}: WIP on master: 7913834 First commit
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+Cleaning:
+Cleaning in a Git repository refers to the process of removing untracked les from the working
+directory. Untracked les are those that have been created or modied in your working directory but
+have not yet been added to Git's tracking system with git add. These could be build outputs, log
+les, or other temporary les that you don't want to include in your repository.
+ git clean -n: Perform a "dry run" of git clean. This shows what les would be deleted
+without actually deleting them.
+ git clean -f: Delete the untracked les. The -f option is required as a safety measure to
+prevent accidental deletion of les.
+ git clean -df: Remove untracked les and directories.
+ git clean -xf: Remove all untracked les, including those specied in the .gitignore le.
+6. Solution
+1. Interactive Staging: The git add -i command initiates the interactive add mode in Git.It's
+particularly useful when one need to carefully organize your commits, ensuring that each contains
+only related changes and that their project history remains clear and understandable. When you run
+git add -i , interactive, Git presents a menu with several options:
+ Status: Shows the current status, similar to git status.
+ Update: Allows you to selectively stage changes.
+ Revert: Unstages les if you have already staged them.
+ Add Untracked: Lets you add untracked les.
+ Patch: Review and stage individual hunks from the changes.
+7
+ Di: Shows the di of what is staged compared to the last commit.
+ Quit: Exits the interactive mode.
+$ git add -i
+*** Commands ***
+1: status 2: update 3: revert 4: add untracked
+5: patch 6: diff 7: quit 8: help
+What now> 8
+status - show paths with changes
+update - add working tree state to the staged set of changes
+revert - revert staged set of changes back to the HEAD version
+patch - pick hunks and update selectively
+diff - view diff between HEAD and index
+add untracked - add contents of untracked files to the staged set of changes
+1.1 In the local Repo, README.md is added and committed(First commit). New les called CONTRIBUTING.md
+and TESTERS.md. Calling git add -i will do the following,
+*** Commands ***
+1: status 2: update 3: revert 4: add untracked
+5: patch 6: diff 7: quit 8: help
+What now> s
+staged unstaged path
+1: +1/-0 nothing readme.md
+*** Commands ***
+What now> 4
+1: CONTRIBUTING.md
+2: Testers.md
+Add untracked>> 1,2
+* 1: CONTRIBUTING.md
+* 2: Testers.md
+Add untracked>> added 2 paths
+1.2 Reverting the changes from staging area
+*** Commands ***
+What now> 1
+staged unstaged path
+1: +1/-0 nothing CONTRIBUTING.md
+2: +1/-0 nothing Testers.md
+3: +1/-0 nothing readme.md
+What now> r
+staged unstaged path
+1: +1/-0 nothing CONTRIBUTING.md
+2: +1/-0 nothing Testers.md
+3: +1/-0 nothing readme.md
+Revert>> 1,2
+staged unstaged path
+* 1: +1/-0 nothing CONTRIBUTING.md
+* 2: +1/-0 nothing Testers.md
+3: +1/-0 nothing readme.md
+1.3 Dierencing
+8
+What now> d
+staged unstaged path
+1: +1/-0 nothing readme.md
+Review diff>> 1
+diff --git a/readme.md b/readme.md
+index 24308cb..66b4a10 100644
+--- a/readme.md
++++ b/readme.md
+@@ -1 +1,2 @@
+This is a readme
++This is a new add
+1.4Patching
+Say a commit is done with all the changes made to CONTRIBUTING.md. New changes is added to the
+le CONTRIBUTING.md. Now issuing git add -i with 5th Option will give the following.
+What now> 5
+staged unstaged path
+1: +2/-0 +1/-0 CONTRIBUTING.md
+Patch update>> 1
+staged unstaged path
+* 1: +2/-0 +1/-0 CONTRIBUTING.md
+Patch update>>
+diff --git a/CONTRIBUTING.md b/CONTRIBUTING.md
+index ffc3485..928c215 100644
+--- a/CONTRIBUTING.md
++++ b/CONTRIBUTING.md
+@@ -1,3 +1,4 @@
+Prashanth SB
++Manoj
+1.5 Patch-Options
+(1/1) Stage this hunk [y,n,q,a,d,e,?]? ?
+y - stage this hunk
+n - do not stage this hunk
+q - quit; do not stage this hunk or any of the remaining ones
+a - stage this hunk and all later hunks in the file
+d - do not stage this hunk or any of the later hunks in the file
+e - manually edit the current hunk
+? - print help
+@@ -1,3 +1,4 @@
+Prashanth SB
++Manoj
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+2. Revision Selection
+Git allows you to refer to a single commit, set of commits, or range of commits in a number of ways,
+They are,
+1. Single Revision: Only few characters of SHA-1 hash is sucient, as long as hash is four
+characters long and unambiguous
+9
+$ git log
+commit 343ff6274fcbdd32a5866d4feda8f73489737298 (HEAD -> master)
+Author: Paryanth <bsprashanth26@gmail.com>
+Date: Wed Jan 24 09:18:57 2024 +0530
+# Issue short SHA-1
+$ git show 343ff6274fcbdd32a5866d4feda8f73489737298
+$ git show 343ff6274fcbdd32a
+$ git show 343ff6
+If you pass abbrev-commit to the git log command, the output will use shorter values but
+keep them unique; it defaults to using seven characters but makes them longer if necessary to
+keep the SHA-1 unambiguous
+$ git log --abbrev-commit --pretty=oneline
+343ff62 (HEAD -> master) First commit
+2. Branch References To refer to a branch, we chan use short SHA-1 as before, or else we can
+refer using the branch name
+# Creating a branch name called Testing
+# Adding Testers.md file and performing +1 commit in the Testing
+$ git show 8bc715e403e6cf59a7e66d390352167c5a3fe56c
+$ git show testing
+If you want to see what any of these examples boils down to in terms of SHA-1s, you can use
+a Git plumbing tool called rev-parse.
+$ git rev-parse testing
+8bc715e403e6cf59a7e66d390352167c5a3fe56c
+3. Reogs: reog  a log of where your HEAD and branch references have been for the last few
+months
+$ git reflog
+343ff62 (HEAD -> master) HEAD@{0}: checkout: moving from master to master
+343ff62 (HEAD -> master) HEAD@{1}: checkout: moving from testing to master
+8bc715e (testing) HEAD@{2}: commit: Testers added
+343ff62 (HEAD -> master) HEAD@{3}: checkout: moving from master to testing
+343ff62 (HEAD -> master) HEAD@{4}: commit (initial): First commit
+$ git show HEAD@{2} # Referring to the logs this way
+$ git show HEAD@{2}
+commit 8bc715e403e6cf59a7e66d390352167c5a3fe56c (testing)
+Author: Paryanth <bsprashanth26@gmail.com>
+Date: Wed Jan 24 09:27:00 2024 +0530
+$ git show master@{yesterday} # Referring to the commit of yesterday on master
+$ git log -g master # formatting git log with reflogs
+10
+4. Ancestry References: The other main way to specify a commit is via its ancestry. If you place
+a  (caret) at the end of a reference, Git resolves it to mean the parent of that commit The
+other main ancestry specication is the  (tilde). This also refers to the rst parent,
+$ git log --pretty=format:'%h %s' --graph
+* adda27c Merge branch 'testing'
+|\
+| * 8bc715e Testers added
+* | 9dfd063 Contributing.md is added
+|/
+$ git show HEAD^ # Parent of the HEAD (Windows git show "HEAD^")
+$ git show adda27c^2 # Show the second parent of adda27c
+# the second parent of a merge commit is from the branch that was merged
+$ git show HEAD~2
+# HEAD~2 means the first parent of the first parent, or the grandparent
+# git show HEAD~~~ = git show HEAD~3
+5. Solution
+1. Soft vs Hard Reset
+1. Soft Reset: Moves the HEAD to a specied commit and keeps the changes from the reset
+commits in the staging area
+2. Hard Reset: Moves the HEAD to a specied commit and discards all changes from the reset
+commits completely
+ Initial Commits: We have a main branch with a series of commits, say C1, C2
+ Branch Creation: We create a new branch from main called feature, and we add two more
+commits to it, C3 and C4.
+ The commit history looks like this:
+1. main: C1 -> C2
+2. feature: C1 -> C2 -> C3 -> C4
+ Perform a soft rest on the feature branch to C2
+$ git reset --soft C2 # Feature branch points to C2 same as main
+ The changes C3 and C4 are not discarded but are left in the staging area if needed to commit
+again
+ Perform a hard rest on the feature branch to C2
+$ git reset --hard C2 # Feature branch points to C2 same as main
+ The changes from C3 and C4 are completely discarded, and are lost
+11
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+2. Merging vs Rebase
+ Git rebase is a command that allows you to integrate changes from one branch into another.
+ It is used to apply the changes made in one branch onto another branch.
+ Unlike merge, rebase rewrites the project history by creating new commits for each commit
+in the original branch.
+In Git, there are two main ways to integrate changes from one branch into another: the merge and
+the rebase Example Scenario is as shown, It performs a three-way merge between the two latest
+Figure 1: Merging Scenario
+branch snapshots (C3 and C4) and the most recent common ancestor of the two (C2), creating a
+new snapshot (and commit)
+$ git checkout master
+$ git merge experiment
+Figure 2: After Merging
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+Again Starting at 1, One can take the patch of the change that was introduced in C4 and reapply
+it on top of C3. In Git, this is called rebasing. With the rebase command, you can take all the
+changes that were committed on one branch and replay them on a dierent branch
+$ git checkout experiment #Switch to Experiment branch
+$ git rebase master #Update the changes in experiment to master and add same commit
+12
+Figure 3: After Rebasing
+Figure 4: After nal Merge
+At this point, you can go back to the master branch and do a fast-forward merge
+3. Solution
+A fork is a copy of a repository that you manage independently. When one fork a repository on a
+platform like GitHub, one create a personal copy of that project under your own account. This allows
+one to freely experiment with changes without aecting the original project as shown in below gure,
+Figure 5: Git Fork Scenario
+From the GitHub Account-I following commands are used, (Use GitHub Website)
+1. Create an Empty Repo in GA1- Add a readme le
+2. Check the fork count and Pull count in the webpage
+3. Check the pull request and Review the changes
+4. Merge or Reject the pull changes
+5. Maintain a clean branch in the master/main
+13
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+From the GitHub Account-II following commands are used,
+1. Create a Fork from the GitHub Webpage which creates a local copy of the remote repo under
+your account
+2. Use git clone reponame to clone it into local machine
+3. Create a new Testers.md, add it to staging and commit the changes
+4. Push these changes to Local Fork using git push origin
+5. Create a Pull request from the GitHub Webpage for the original author
+4. Solution
+a. Pushing Changes to the Remote Repository
+1. Commit Your Changes Locally:
+$git add .
+$git commit -m "Your commit message"
+2. Push to Remote Repository:
+$git push origin <branch_name>
+# Replace \texttt{<branch\_name>} with the name of your branch.
+3. Using an Access Token: When prompted, enter your username and access token.
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+b. Using git fetch vs. git pull
+ git fetch: Fetches new data from the remote repository without integrating changes into
+your working les.
+ git pull: Fetches new data and automatically tries to merge it into your current branch.
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+c. Incorporating Changes from the Remote Repository
+$ git pull origin <branch_name>
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+d. Cloning a Repository for a New Feature
+$ git clone <repository_url>
+$ cd <repository_name>
+$ git checkout -b <new_feature_branch>
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+e. Deleting a Local Branch and Updating the Master Branch on GitHub
+$ git branch -d <branch_name>
+$ git checkout master
+$ git pull origin master
+$ git push origin master
+Delete a local branch and update the Master branch on GitHub.
